@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Green Channels — design tokens
+   Direction: a tech-pack dossier. Bottle-green ink, ivory paper,
+   fine hairlines, formal serif headlines, mono for specifications.
+------------------------------------------------------------------- */
+:root {
+  --ink: #06120e;
+  --forest: #0b1f18;
+  --pine: #123027;
+  --ivory: #f5f1e8;
+  --parchment: #ebe5d6;
+  --sage: #a7b5ab;
+  --moss: #56665c;
+  --green: #2fbf6b;
+  --green-deep: #14824a;
+  --thread: #e6d3a0;
+  --line-dark: rgb(245 241 232 / 0.14);
+  --line-light: rgb(6 18 14 / 0.14);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-forest: var(--forest);
+  --color-pine: var(--pine);
+  --color-ivory: var(--ivory);
+  --color-parchment: var(--parchment);
+  --color-sage: var(--sage);
+  --color-moss: var(--moss);
+  --color-green: var(--green);
+  --color-green-deep: var(--green-deep);
+  --color-thread: var(--thread);
+
+  --font-display: var(--font-newsreader), "Times New Roman", Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  background: var(--ink);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--ink);
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* ---- Typography helpers ---- */
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.h-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 380;
+  letter-spacing: -0.022em;
+  line-height: 0.98;
+}
+
+.h-section {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  font-size: clamp(2.25rem, 4.6vw, 4.5rem);
+}
+
+/* subtle paper grain */
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.12  0 0 0 0 0.1  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.grain-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* ---- Stitch animation used on garment drawings ---- */
+@keyframes stitch-run {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+.stitch {
+  stroke-dasharray: 3 3;
+  animation: stitch-run 1.4s linear infinite;
+  animation-play-state: paused;
+}
+.group:hover .stitch,
+.group:focus-visible .stitch,
+.stitch-live .stitch {
+  animation-play-state: running;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+.scroll-cue {
+  animation: scroll-cue 2.4s var(--ease-out-expo) infinite;
+}
+
+@keyframes dash-run {
+  to {
+    stroke-dashoffset: -64;
+  }
+}
+.dash-run {
+  animation: dash-run 6s linear infinite;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Reduce motion: honour the user's setting everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
