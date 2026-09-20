@@ -96,6 +96,13 @@ html.lenis body {
   text-transform: uppercase;
 }
 
+/* larger variant for sections where the label must stay easy to read */
+.eyebrow-lg {
+  font-size: 0.875rem;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+}
+
 .h-display {
   font-family: var(--font-display);
   font-optical-sizing: auto;
